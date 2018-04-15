@@ -3,15 +3,25 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  getRandomArrayElement = function(items) {
+    return items[Math.floor(Math.random()*items.length)];
+  }
+  
+  generateProduct = function() {
+    let nameStarters = ["Super", "Mildly", "Quite", "Really", "Fancy", "Ready-made",];
+    let nameMiddles = [ "nutty", "peppered", "saucy", "boiled", "tasty", "flaky", "roasted", "hot", "fresh"];
+    let nameEnds = ["salad", "chicken", "fish & chips", "Coca-cola", "sparkling water", "sandwich", "tuna pie", "crisps", "sausages"];
+    return `${this.getRandomArrayElement(nameStarters)} ${this.getRandomArrayElement(nameMiddles)} ${this.getRandomArrayElement(nameEnds)}`;
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Avari-o-matic</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          {this.generateProduct()}
         </p>
       </div>
     );
