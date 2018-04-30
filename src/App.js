@@ -6,7 +6,8 @@ class App extends Component {
     super(props);
     this.state = {
       productName: "",
-      loading: true};
+      loading: true,
+      errorLoading: false};
   }
   getRandomArrayElement = function(items) {
     return items[Math.floor(Math.random()*items.length)];
@@ -25,7 +26,8 @@ generateGoogleImageFromProduct(productName) {
   this.setState((prevState, props) => {
     return {
       ...props,
-      loading: true
+      loading: true,
+      errorLoading: false
     }
   });
 
@@ -46,6 +48,15 @@ generateGoogleImageFromProduct(productName) {
           imageUrl: this.getRandomArrayElement(images).url,
           loading: false
       }})
+    }).catch((e) => {
+      this.setState((prevState, props) => {
+        return {
+          ...props,
+          imageUrl: null,
+          loading: false,
+          errorLoading: true
+      }})
+      console.error(e);
     });
 }
 
@@ -77,7 +88,8 @@ generateGoogleImageFromProduct(productName) {
           <div><button onClick={() => this.generateProduct()}>Generate</button></div>
           <div>{this.state.productName}</div>
           {!this.state.loading && this.state.imageUrl && <div><img style={{"width" : "300px"}} src={this.state.imageUrl}/></div>}
-          {!this.state.loading && !this.state.imageUrl && <div>:-( No image found for {this.state.productName}</div>}
+          {!this.state.loading && this.state.errorLoading && <div>:-( Error loading data, probably because of Google image search usage limit.</div>}
+          {!this.state.loading && !this.state.errorLoading && !this.state.imageUrl && <div>:-( No image found for {this.state.productName}</div>}
           {this.state.loading && <div style={{"font-style": "italic"}}>(Loading...)</div>}
         </div>
       </div>
