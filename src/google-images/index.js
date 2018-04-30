@@ -1,7 +1,6 @@
-'use strict';
-
-const qs = require('querystring');
-const got = require('got');
+// This is some hacked around code from the google-images npm package,
+// which I had to pull out and modify because it doesn't work nicely with ES6
+const requestPromise = require('request-promise');
 
 class Client {
 	constructor(id, apiKey) {
@@ -24,9 +23,9 @@ class Client {
 		}
 
 		const url = `${this.endpoint}/customsearch/v1?${this.buildQuery(query, options)}`;
-
-		return got(url, {json: true}).then(res => {
-			const items = res.body.items || [];
+		console.log(url);
+		return requestPromise(url).then(res => {
+			const items = JSON.parse(res).items || [];
 
 			return items.map(item => ({
 				type: item.mime,
@@ -47,7 +46,7 @@ class Client {
 
 	buildQuery(query, options) {
 		options = options || {};
-
+		return `searchType=image&key=${this.apiKey}&cx=${this.id}&q=${query.replace(/\s/g, '+')}`;	
 		const result = {
 			q: query.replace(/\s/g, '+'),
 			searchType: 'image',
@@ -79,7 +78,7 @@ class Client {
 			result.safe = options.safe;
 		}
 
-		return qs.stringify(result);
+		return encodeURIComponent(result);
 	}
 }
 
