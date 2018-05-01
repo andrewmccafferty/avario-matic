@@ -17,8 +17,8 @@ class App extends Component {
 
 generateGoogleImageFromProduct(productName) {
     
-  let googleSearchApiKey = process.env.GOOGLE_API_KEY;
-  let googleCustomSearchId = process.env.CUSTOM_SEARCH_KEY;
+  let googleSearchApiKey = "AIzaSyDyCE7T9DHO-lISGuHEhHxOYYv10FlVZ8Q";
+  let googleCustomSearchId = "018444961947954724953:rpnwzm1dq3c";
 
   const GoogleImages = require('./google-images');
 
