@@ -117,7 +117,7 @@ generateRecipe = (nameMiddle, nameEnd) => {
           <div><button onClick={() => this.generateProduct()}>Generate</button></div>
           <div>{this.state.productName}</div>
           {!this.state.loading && this.state.imageUrl && <div><img style={{"width" : "300px"}} src={this.state.imageUrl}/></div>}
-          {!this.state.imageUrl && this.state.recipe && this.state.recipe.image && <div><img style={{"width" : "300px"}} src={this.state.recipe.image}/></div>}
+          {!this.state.recipeLoading && !this.state.imageUrl && this.state.recipe && this.state.recipe.image && <div><img style={{"width" : "300px"}} src={this.state.recipe.image}/></div>}
           {this.state.loading && <div style={{"font-style": "italic"}}>(Loading image...)</div>}
           {this.state.recipeLoading && <div>Loading recipe...</div>}
           {!this.state.recipeLoading && this.state.recipe && <div>
